@@ -1,4 +1,5 @@
 import './assets/main.css'
+import './mock/index.ts';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

@@ -26,8 +26,13 @@ const tabs = [
 ];
 
 const editorContainer = ref();
-let editor; // 用于存储编辑器实例
-
+const originData = {
+  value: 'come to the editor!',
+  language: 'javascript',
+  theme: 'vs-dark',
+    automaticLayout: true,
+}
+let editor: monaco.editor.IStandaloneCodeEditor | null = null ;
 const emit = defineEmits(['update:value']);
 
 const handleTabToEditor = (tabData) => {
