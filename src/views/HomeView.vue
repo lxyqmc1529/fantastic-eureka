@@ -4,6 +4,9 @@
       <sideBar />
     </div>
     <div class="home-editor-container">
+      <div class="tab-container">
+        <tab @chooseTab="handleTabToEditor" />
+      </div>
       <div class="editor-container" ref="editorContainer"></div>
     </div>
   </div>
@@ -13,6 +16,7 @@
 import { onMounted, ref, defineOptions, defineEmits, defineProps, withDefaults } from 'vue';
 import * as monaco from 'monaco-editor';
 import sideBar from '@/components/sideBar/sideBar.vue';
+import tab from '@/components/tab/tab.vue';
 const editorContainer = ref();
 defineOptions({
   name: 'home',
@@ -28,7 +32,10 @@ const props = withDefaults(defineProps<{
 });
 
 const emit = defineEmits(['update:value']);
-
+const handleTabToEditor = (tabName: string) => {
+  const editor = monaco.editor.getModels()[0];
+  editor.setValue(tabName);
+};
 onMounted(() => {
   const editor = monaco.editor.create(editorContainer.value, {
     value: props.value,

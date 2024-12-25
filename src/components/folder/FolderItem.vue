@@ -19,7 +19,6 @@ const props = defineProps({
     default: ''
   }
 })
-console.log(props.value, '----');
 //动态导入组件,处理循环引用、最大栈溢出问题
 const Folder = defineAsyncComponent(() => import('@/components/folder/folder.vue'));
 

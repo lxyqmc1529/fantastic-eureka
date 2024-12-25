@@ -31,8 +31,6 @@ const tags1 = ref(['Vue', 'React']);
 const tags2 = ref<TagInputProps['value']>(['Vue', 'React']);
 const tags3 = ref<TagInputProps['defaultValue']>(['Vue', 'React']);
 
-console.log(props);
-
 const handlePanelChange: CollapseProps['onChange'] = (val) => {
   currentItem.value = val.map((n) => Number(n));
 };
