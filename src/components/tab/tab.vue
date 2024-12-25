@@ -15,8 +15,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref,defineEmits } from 'vue';
+import { ref,defineEmits,defineProps } from 'vue';
 import { TabsProps } from 'tdesign-vue-next';
+const props = defineProps<TabsProps>();
 let id = 0;
 const value = ref('first');
 const emit = defineEmits(['chooseTab']);
