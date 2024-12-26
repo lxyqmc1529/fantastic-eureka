@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, defineEmits, watch, useAttrs } from 'vue';
+import { onMounted, ref, defineEmits, watch, useAttrs, onUnmounted } from 'vue';
 import * as monaco from 'monaco-editor';
 import sideBar from '@/components/sideBar/sideBar.vue';
 import tab from '@/components/tab/tab.vue';
@@ -59,13 +59,35 @@ onMounted(() => {
   // 初始化编辑器
   handleTabToEditor('welcome to the editor!');
 });
-watch(
-  () => tabStore.selectedTab,
-  (newTab:string) => {
-    console.log(tabStore.selectedTab,'-----');
-  }
-)
+// 注册补全建议
+monaco.languages.registerCompletionItemProvider('javascript', {
+  provideCompletionItems: (model, position) => {
+    // 获取当前单词
+    const word = model.getWordUntilPosition(position);
+    const range = {
+      startLineNumber: position.lineNumber,
+      endLineNumber: position.lineNumber,
+      startColumn: position.column - word.length,
+      endColumn: position.column
+    };
 
+    // 返回补全建议
+    return {
+      suggestions: [
+        {
+          label: word,
+          kind: monaco.languages.CompletionItemKind.Keyword,
+          insertText: word,
+          range: range
+        },
+        // ...其他补全建议
+      ]
+    };
+  }
+});
+onUnmounted(() => {
+  editor?.dispose();
+});
 // 监听组件卸载时销毁编辑器
 // (需要注意的是，这个代码片段中并没有使用onUnmounted，如果需要确保在组件卸载时编辑器被销毁，应该添加此钩子)
 </script>
