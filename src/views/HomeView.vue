@@ -36,7 +36,7 @@ const originData = {
 let editor: monaco.editor.IStandaloneCodeEditor | null = null ;
 const emit = defineEmits(['update:value']);
 
-const handleTabToEditor = (tabData) => {
+const handleTabToEditor = (tabData:string) => {
   // 销毁旧的编辑器实例
   if (editor) {
     editor.dispose();
@@ -51,7 +51,7 @@ const handleTabToEditor = (tabData) => {
   tabStore.selectedTab = tabData;
   // 监听编辑器内容变化并emit
   editor.onDidChangeModelContent(() => {
-    emit('update:value', editor.getValue());
+    emit('update:value', editor?.getValue());
   });
 };
 const tabStore = useChoseFileStore();
@@ -85,11 +85,12 @@ monaco.languages.registerCompletionItemProvider('javascript', {
     };
   }
 });
+
 onUnmounted(() => {
   editor?.dispose();
 });
 // 监听组件卸载时销毁编辑器
-// (需要注意的是，这个代码片段中并没有使用onUnmounted，如果需要确保在组件卸载时编辑器被销毁，应该添加此钩子)
+
 </script>
 
 <style lang="less" scoped>
