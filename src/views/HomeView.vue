@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, defineEmits, watch, useAttrs, onUnmounted } from 'vue';
+import { onMounted, ref, defineEmits, onUnmounted } from 'vue';
 import * as monaco from 'monaco-editor';
 import sideBar from '@/components/sideBar/sideBar.vue';
 import tab from '@/components/tab/tab.vue';
@@ -97,20 +97,22 @@ onUnmounted(() => {
 .container {
   display: flex;
   height: 100vh;
+  overflow: hidden;
 }
 
 .home-sidebar-container {
   flex: 0.1;
   border: solid 1px #ccc;
-  height: 100vh;
+  height: 100%;
 }
 
 .home-editor-container {
   flex: 0.9;
-  height: 100vh;
+  overflow: hidden;
+  height: 100%;
 }
 
 .editor-container {
-  height: 100vh;
+  height: 100%;
 }
 </style>
