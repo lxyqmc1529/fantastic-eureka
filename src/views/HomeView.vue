@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <div class="home-sidebar-container">
+    <div class="home-sidebar-container" ref="sidebarContainer">
       <sideBar />
+      <div class="handle" @mousedown="startDrag"></div>
     </div>
     <div class="home-editor-container">
       <div class="tab-container">
@@ -85,9 +86,33 @@ monaco.languages.registerCompletionItemProvider('javascript', {
     };
   }
 });
+const sidebarContainer = ref(null);
+const isDragging = ref(false);
+
+const startDrag = (event) => {
+  isDragging.value = true;
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('mouseup', endDrag);
+};
+
+const drag = (event) => {
+  if (isDragging.value) {
+    const container = sidebarContainer.value;
+    const newWidth = event.clientX - container.getBoundingClientRect().left;
+    container.style.width = `${newWidth}px`;
+  }
+};
+
+const endDrag = () => {
+  isDragging.value = false;
+  document.removeEventListener('mousemove', drag);
+  document.removeEventListener('mouseup', endDrag);
+};
 
 onUnmounted(() => {
   editor?.dispose();
+  document.removeEventListener('mousemove', drag);
+  document.removeEventListener('mouseup', endDrag);
 });
 // 监听组件卸载时销毁编辑器
 
@@ -101,18 +126,30 @@ onUnmounted(() => {
 }
 
 .home-sidebar-container {
-  flex: 0.1;
+  width: 18%;
+  flex: 0 0 0.1; /* 修改这里 */
   border: solid 1px #ccc;
   height: 100%;
+  position: relative;
+  transition: width 0.1s; /* 添加过渡效果 */
 }
 
 .home-editor-container {
-  flex: 0.9;
+  flex: 1;
   overflow: hidden;
   height: 100%;
 }
 
 .editor-container {
   height: 100%;
+}
+.handle {
+  width: 3px;
+  height: 100%;
+  background-color: #ddd;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: col-resize;
 }
 </style>
