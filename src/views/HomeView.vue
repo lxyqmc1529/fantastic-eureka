@@ -48,7 +48,7 @@ const handleTabToEditor = (tabData:string) => {
     theme: 'vs-dark',
     automaticLayout: true,
   });
-  tabStore.selectedTab = tabData;
+  tabStore.setSelectedTab(tabData);
   // 监听编辑器内容变化并emit
   editor.onDidChangeModelContent(() => {
     emit('update:value', editor?.getValue());

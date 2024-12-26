@@ -17,7 +17,13 @@
 <script lang="ts" setup>
 import { ref,defineEmits,defineProps } from 'vue';
 import { TabsProps } from 'tdesign-vue-next';
-const props = defineProps<TabsProps>();
+import { useChoseFileStore} from '@/stores/choseFile'
+const props = defineProps({
+  panelData: {
+    type: Array,
+    default: () => [],
+  },
+})
 let id = 0;
 const value = ref('first');
 const emit = defineEmits(['chooseTab']);
