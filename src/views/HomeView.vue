@@ -36,6 +36,7 @@ let editor: monaco.editor.IStandaloneCodeEditor | null = null ;
 const emit = defineEmits(['update:value']);
 
 const handleTabToEditor = (tabData) => {
+  console.log(tabData);
   // 销毁旧的编辑器实例
   if (editor) {
     editor.dispose();
@@ -56,7 +57,7 @@ const handleTabToEditor = (tabData) => {
 
 onMounted(() => {
   // 初始化编辑器
-  handleTabToEditor(tabs[0]);
+  handleTabToEditor('welcome to the editor!');
 });
 
 // 监听组件卸载时销毁编辑器
