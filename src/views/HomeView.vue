@@ -13,10 +13,11 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, defineEmits, watch } from 'vue';
+import { onMounted, ref, defineEmits, watch, useAttrs } from 'vue';
 import * as monaco from 'monaco-editor';
 import sideBar from '@/components/sideBar/sideBar.vue';
 import tab from '@/components/tab/tab.vue';
+import{ useChoseFileStore } from '@/stores/ChoseFile';
 
 // 写死的tab数据
 const tabs = [
@@ -36,7 +37,6 @@ let editor: monaco.editor.IStandaloneCodeEditor | null = null ;
 const emit = defineEmits(['update:value']);
 
 const handleTabToEditor = (tabData) => {
-  console.log(tabData);
   // 销毁旧的编辑器实例
   if (editor) {
     editor.dispose();
@@ -48,17 +48,23 @@ const handleTabToEditor = (tabData) => {
     theme: 'vs-dark',
     automaticLayout: true,
   });
-
+  tabStore.selectedTab = tabData;
   // 监听编辑器内容变化并emit
   editor.onDidChangeModelContent(() => {
     emit('update:value', editor.getValue());
   });
 };
-
+const tabStore = useChoseFileStore();
 onMounted(() => {
   // 初始化编辑器
   handleTabToEditor('welcome to the editor!');
 });
+watch(
+  () => tabStore.selectedTab,
+  (newTab:string) => {
+    console.log(tabStore.selectedTab,'-----');
+  }
+)
 
 // 监听组件卸载时销毁编辑器
 // (需要注意的是，这个代码片段中并没有使用onUnmounted，如果需要确保在组件卸载时编辑器被销毁，应该添加此钩子)
