@@ -42,7 +42,10 @@ onBeforeMount(async () => {
 .custom-collapse > *{
   background-color: inherit;
 }
+/deep/.t-collapse-panel__body{
+  background-color: rgb(30, 30, 30);
+}
 /deep/.t-collapse-panel__content{
-
+  background-color: rgb(30, 30, 30);
 }
 </style>
