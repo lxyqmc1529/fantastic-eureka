@@ -2,7 +2,7 @@
   <div class="nav-bar">
     <div :style="containerStyle">
       <h2 style="font-size:1em;margin: 0;">资源管理器</h2>
-      <div class="handle"></div>
+
       <!-- 这个组件传了一个数组进来，进行遍历 -->
       <folder v-for="(folder, index) in fileStructure" :key="index" :value="folder"></folder>
     </div>
@@ -52,13 +52,5 @@ const fileStructure = [{
   bottom: 0;
 
 }
-.handle {
-  width: 3px;
-  height: 100%;
-  background-color: #ddd;
-  position: absolute;
-  right: 0;
-  top: 0;
-  cursor: col-resize;
-}
+
 </style>

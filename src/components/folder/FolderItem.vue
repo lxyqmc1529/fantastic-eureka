@@ -2,7 +2,7 @@
   <div class="collapse-container">
     <!-- 这里处理的是一个对象，所以需要一个collapse，和多个panel -->
     <t-collapse :borderless="true" :default-value="[1]" class="custom-collapse">
-      <t-collapse-panel :header=value.name>
+      <t-collapse-panel :header=value.name class="collapse-panel">
         <folder v-for="(item, index) in value.fileList" :key="index" :value="item" />
       </t-collapse-panel>
     </t-collapse>
@@ -30,4 +30,19 @@ onBeforeMount(async () => {
   components.value.Folder = Folder;
 });
 </script>
-<style scoped></style>
+<style lang="less" scoped>
+.collapse-container > * {
+  background-color: rgb(30, 30, 30);
+}
+.custom-collapse {
+  background-color: rgb(30, 30, 30);
+  color: aliceblue;
+  font-size: 14px;
+}
+.custom-collapse > *{
+  background-color: inherit;
+}
+/deep/.t-collapse-panel__content{
+
+}
+</style>

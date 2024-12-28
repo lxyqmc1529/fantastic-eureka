@@ -71,7 +71,7 @@ const panelData = ref([
 </script>
 <style>
 .t-tabs-card::v-deep {
-  background-color: inherit;
+  background-color: rgb(106, 41, 41);
   width: 100%;
   height:30px;
   margin: 0;

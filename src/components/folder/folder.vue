@@ -1,6 +1,6 @@
 <template>
   <!-- 传过来的应该是一个单独的项，这个项有可能是file，也有可能是folder，如果是file渲染FileItem，如果是folder渲染Collapse -->
-  <t-space direction="vertical">
+  <t-space direction="vertical" class="folder">
     <component :is="value.type == 'file' ? FileItem : FolderItem" :value="value">
     </component>
   </t-space>
@@ -46,14 +46,11 @@ const onPaste: TagInputProps['onPaste'] = (context) => {
 };
 </script>
 <style lang="less" scoped>
-.button-area {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.custom-collapse {
-  background-color: inherit;
+.folder {
+  background-color: rgb(30, 30, 30);
   color: azure;
+}
+.folder > * {
+  background-color: inherit;
 }
 </style>

@@ -89,13 +89,13 @@ monaco.languages.registerCompletionItemProvider('javascript', {
 const sidebarContainer = ref(null);
 const isDragging = ref(false);
 
-const startDrag = (event) => {
+const startDrag = () => {
   isDragging.value = true;
   document.addEventListener('mousemove', drag);
   document.addEventListener('mouseup', endDrag);
 };
 
-const drag = (event) => {
+const drag = (event:any) => {
   if (isDragging.value) {
     const container = sidebarContainer.value;
     const newWidth = event.clientX - container.getBoundingClientRect().left;
